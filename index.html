@@ -83,7 +83,8 @@
                         vm = this;
                         navigator.geolocation.getCurrentPosition((position) => {
                             vm.coordenates.latitude = position.coords.latitude;
-                            vm.coordenates.latitude = position.coords.longitude;
+                            vm.coordenates.longitude = position.coords.longitude;
+                            // console.log(vm.coordenates.latitude);
                         }, (error) => {
                             console.log(error);
                         })
