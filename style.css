@@ -1,0 +1,47 @@
+.col-md-8{
+    /* background-color: gray; */
+    height: 550px;
+    margin-left: 180px;
+}
+
+.navbar{
+    background-color: #25ACBF;
+    height: 75px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-brand{
+    color: white;
+    font-family: Ropa Sans;
+}
+
+.nav-link{
+    color: white;
+    font-family: Ropa Sans;
+}
+
+@font-face{
+    font-family: Ropa Sans;
+    src: url("./fonts/RopaSans-Regular.ttf");
+}
+
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+.btn{
+    height: 50px;
+    width: 170px;
+    margin-top: 140px;
+    margin-left: 280px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#ask{
+    font-size: 12px;
+    color: gray;
+    margin-left: 100px;
+    margin-top: 100px;
+    position: absolute;
+}

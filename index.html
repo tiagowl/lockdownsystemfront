@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lockdown System Brasil</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <navbar></navbar>
+        </nav>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <mapa></mapa>
+                    <label id="ask" >Tem alguém que está com sintomas ou morreu por causa do corona vírus no local onde você mora?</label>
+                    <button class="btn btn-primary" >Cadastrar Incidente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="navbar" >
+        <nav class="navbar navbar-expand-lg">
+            <a href="#" class="navbar-brand" >Lockdown System Brasil</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="margin-left: 800px; margin-right: 15px;">Sobre</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="#" class="nav-link">Cadastrar Incidente</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </template>
+
+    <template id="mapa" >
+        <div id="map">
+            
+        </div>
+        
+    </template>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnscoNs-r3a4vaV6BD5dfgbjUIkZiQQqI&callback=initMap" async defer ></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+
+        Vue.component('navbar', {
+            template: "#navbar"
+        });
+
+        Vue.component('mapa', {
+            template: "#mapa",
+            data(){
+                return {
+                    map: "",
+                    coordenates: {
+                        latitude: 0,
+                        longitude: 0
+                    }
+                }
+            },
+            methods: {
+                
+                initMap(){
+                    var vm = this;
+                    vm.map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: vm.coordenates.latitude, lng: vm.coordenates.longitude},
+                        zoom: 10
+                    });
+                },
+
+                getlocalization(){
+                    if('geolocation' in navigator){
+                        vm = this;
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            vm.coordenates.latitude = position.coords.latitude;
+                            vm.coordenates.latitude = position.coords.longitude;
+                        }, (error) => {
+                            console.log(error);
+                        })
+                    }
+                }
+            },
+            beforeMount(){
+                this.getlocalization();
+            },
+            mounted(){
+                this.initMap();
+            }
+        });
+
+        var app = new Vue({
+            el: "#app"
+        });
+
+    </script>
+    
+</body>
+</html>
