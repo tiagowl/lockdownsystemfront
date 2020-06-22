@@ -70,68 +70,20 @@
             },
             methods: {
                 
-                initMap(latitude,longitude){
+                initMap(){
                     var vm = this;
-
-                    console.log("LATITUDE = " + latitude + "  LONGITUDE = " + longitude);
                     vm.map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: latitude, lng: longitude},
-                        zoom: 12
+                        center: {lat: vm.coordenates.latitude, lng: vm.coordenates.longitude},
+                        zoom: 10
                     });
+                },
 
-                    var marker = new google.maps.Marker({position: {lat: latitude, lng: longitude}, map: vm.map});
-                
-                    var iconBase =
-            'icons/';
-
-        var icons = {
-          suspect: {
-            icon: iconBase + 'white-pin.png'
-          },
-          confirmed: {
-            icon: iconBase + 'red-pin.png'
-          },
-          death: {
-            icon: iconBase + 'black-pin.png'
-          }
-        };
-
-        var features = [
-          {
-            position: new google.maps.LatLng(-30.0254
-, -51.1622),
-            type: 'confirmed'
-          },
-
-          {
-            position: new google.maps.LatLng(-30.0447
-, -51.2302),
-            type: 'suspect'
-          },
-
-          {
-            position: new google.maps.LatLng(-30.0849
-, -51.2458),
-            type: 'death'
-          },
-        ];
-     
-        for (var i = 0; i < features.length; i++) {
-          var marker = new google.maps.Marker({
-            position: features[i].position,
-            icon: icons[features[i].type].icon,
-            map: vm.map
-          });
-        };                    
-    },
-
-                getLocalization(){
+                getlocalization(){
                     if('geolocation' in navigator){
                         vm = this;
                         navigator.geolocation.getCurrentPosition((position) => {
                             vm.coordenates.latitude = position.coords.latitude;
-                            vm.coordenates.longitude = position.coords.longitude;
-                            vm.initMap(position.coords.latitude, position.coords.longitude);
+                            vm.coordenates.latitude = position.coords.longitude;
                         }, (error) => {
                             console.log(error);
                         })
@@ -139,12 +91,10 @@
                 }
             },
             beforeMount(){
-                this.getLocalization();
+                this.getlocalization();
             },
             mounted(){
-                if(vm.coordenates.latitude != 0 && vm.coordenates.longitude != 0){
-                    this.initMap();
-                }
+                this.initMap();
             }
         });
 
